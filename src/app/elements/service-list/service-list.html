@@ -1,0 +1,5 @@
+<section class="w-full max-w-8xl mt-10 space-y-6">
+    @for (service of services(); track service.id) {
+        <app-service-card [service]="service" (toggle)="toggleService($event)"></app-service-card> 
+    }
+</section>

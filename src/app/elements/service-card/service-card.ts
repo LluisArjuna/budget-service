@@ -48,50 +48,5 @@ export class ServiceCard {
       pages: this.service().configuration!.pages,
       languages: value
     });
-  }/**/ 
-
-  increasePages() {
-  this.configChange.emit({
-      id: this.service().id,
-      pages: this.service().configuration!.pages +1,
-      languages: this.service().configuration!.languages
-    });
-}
-
-decreasePages() {
-  const serv = this.service();
-  if (!serv.configuration) return;
-
-  const pages = Math.max(1, serv.configuration.pages - 1);
-
-  this.configChange.emit({
-    id: serv.id,
-    pages,
-    languages: serv.configuration.languages
-  });
-}
-
-increaseLanguages() {
-  const serv = this.service();
-  if (!serv.configuration) return;
-
-  this.configChange.emit({
-    id: serv.id,
-    pages: serv.configuration.pages,
-    languages: serv.configuration.languages + 1
-  });
-}
-
-decreaseLanguages() {
-  const serv = this.service();
-  if (!serv.configuration) return;
-
-  const languages = Math.max(1, serv.configuration.languages - 1);
-
-  this.configChange.emit({
-    id: serv.id,
-    pages: serv.configuration.pages,
-    languages
-  });
-}
+  }
 }
