@@ -1,0 +1,52 @@
+<div class="bg-white rounded-2xl shadow-md m-3 p-6 flex flex-col" [class.selected]="service().selected">
+  <div class="flex flex-row justify-between w-full">
+    <div class="header">    
+        <h2 class="text-xl font-semibold text-gray-800">{{service().type}}</h2>
+        <p class="text-md mt-1">{{ service().description }}</p>
+    </div>
+    <div class="text-2xl font-bold text-gray-800">
+        <p><strong>{{ service().basePrice }} €</strong></p>
+    </div>
+    <div class="flex items-center gap-2">
+        <input class="w-4 h-4 accent-black cursor-pointer" type="checkbox" [checked]="service().selected" (change)="toggle.emit(service().id)"/>
+        <span class="text-sm text-gray-600">Afegir</span>
+    </div>
+  </div>
+  @if (isWebSelected()) {
+      <div class="mt-6 pt-6 border-t border-gray-200 flex gap-10">
+
+    <!-- Pages -->
+    <div class="flex items-center gap-3">
+      <span class="text-sm font-medium text-gray-700">
+        Nombre de pàgines
+      </span>
+
+      <div class="flex items-center border rounded-lg overflow-hidden">
+        <input min="1"
+          type="number"
+          class="w-12 text-center outline-none"
+          [value]="service().configuration!.pages"
+          (change)="updatePages($event)"
+        />
+      </div>
+    </div>
+
+    <!-- Languages -->
+    <div class="flex items-center gap-3">
+      <span class="text-sm font-medium text-gray-700">
+        Nombre de llenguatges
+      </span>
+
+      <div class="flex items-center border rounded-lg overflow-hidden">
+        <input min="1"
+          type="number"
+          class="w-12 text-center outline-none"
+          [value]="service().configuration!.languages"
+          (change)="updateLanguages($event)"
+        />
+      </div>
+    </div>
+
+  </div>
+  }
+</div>
