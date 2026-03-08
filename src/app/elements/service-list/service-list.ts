@@ -1,17 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { services } from '../../data/services';
 import { Service } from '../../interfaces/service.interface';
 import { ServiceCard } from "../service-card/service-card";
-
+import { BudgetService } from '../../services/budget-service';    
 
 @Component({
   selector: 'app-service-list',
   imports: [ServiceCard],
   templateUrl: './service-list.html',
-  styleUrl: './service-list.css',
+  
 })
 export class ServiceList {
   services = signal<Service[]>(services);
+
+  constructor(private budgetService: BudgetService) {}
 
   toggleService(id: number) {
   this.services.update(list =>
@@ -21,5 +23,27 @@ export class ServiceList {
         : service
     )
   );
-}
+  }
+
+  updateConfig(event: { id: number; pages: number; languages: number }) {
+  this.services.update(list =>
+    list.map(service =>
+      service.id === event.id && service.configuration
+        ? {
+            ...service,
+            configuration: {
+              ...service.configuration,
+              pages: event.pages,
+              languages: event.languages
+            }
+          }
+        : service
+    )
+  );
+  }
+
+  total = computed(() =>
+    this.budgetService.calculateTotal(this.services())
+  );
+
 }
