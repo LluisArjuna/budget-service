@@ -3,10 +3,8 @@ import { Service } from '../../interfaces/service.interface';
 
 @Component({
   selector: 'app-service-card',
-  standalone: true,
   imports: [],
   templateUrl: './service-card.html',
-  styleUrl: './service-card.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ServiceCard {
@@ -30,23 +28,25 @@ export class ServiceCard {
     return serv.basePrice + (pages + languages) * extraUnitPrice;
   });
 
-  configChange = output<{ id: number; pages: number; languages: number }>();
+  emitChange = output<{ id: number; pages: number; languages: number }>();
+
+  updateLanguages(event: Event) {
+  const value = Number((event.target as HTMLInputElement).value);
+
+  this.emitChange.emit({
+    id: this.service().id,
+    pages: this.service().configuration!.pages,
+    languages: value
+  });
+  }
 
   updatePages(event: Event) {
     const value = Number((event.target as HTMLInputElement).value);
-    this.configChange.emit({
+
+    this.emitChange.emit({
       id: this.service().id,
       pages: value,
       languages: this.service().configuration!.languages
-    });
-  }
-
-  updateLanguages(event: Event) {
-    const value = Number((event.target as HTMLInputElement).value);
-    this.configChange.emit({
-      id: this.service().id,
-      pages: this.service().configuration!.pages,
-      languages: value
     });
   }
 }
