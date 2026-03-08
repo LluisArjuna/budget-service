@@ -22,12 +22,7 @@
       </span>
 
       <div class="flex items-center border rounded-lg overflow-hidden">
-        <input min="1"
-          type="number"
-          class="w-12 text-center outline-none"
-          [value]="service().configuration!.pages"
-          (change)="updatePages($event)"
-        />
+        <input min="1" type="number" class="w-12 text-center outline-none" [value]="service().configuration!.pages" (input)="updatePages($event)"/>
       </div>
     </div>
 
@@ -38,12 +33,7 @@
       </span>
 
       <div class="flex items-center border rounded-lg overflow-hidden">
-        <input min="1"
-          type="number"
-          class="w-12 text-center outline-none"
-          [value]="service().configuration!.languages"
-          (change)="updateLanguages($event)"
-        />
+        <input min="1" type="number" class="w-12 text-center outline-none" [value]="service().configuration!.languages" (input)="updateLanguages($event)"/>
       </div>
     </div>
 
