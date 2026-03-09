@@ -1,0 +1,6 @@
+<section class="w-full max-w-8xl mt-10 space-y-6">
+    @for (service of services(); track service.id) {
+        <app-service-card [service]="service" (toggle)="toggleService($event)" (emitChange)="updateConfig($event)"></app-service-card> 
+    }
+    <h2 class="text-2xl font-bold right-100">Total: {{ total() }} €</h2>
+</section>
