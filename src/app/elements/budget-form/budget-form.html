@@ -1,0 +1,38 @@
+<div class="max-w-4xl mx-auto mt-20">
+  <div class="bg-gray-100 rounded-xl shadow-md p-6">
+    
+    <h2 class="text-lg font-semibold text-gray-800 mb-4">
+      Demanar pressupost
+    </h2>
+
+    <form class="flex flex-col md:flex-row gap-3" [formGroup]="form" (submit)="submit()">
+        <div class="flex flex-col flex-1">
+        <input class="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-500" type="text" placeholder="Name" formControlName="firstName">
+
+        @if (form.controls.firstName.touched && form.controls.firstName.invalid) {
+            <p class="text-red-500 text-xs mt-1">Name must be at least 3 characters</p>
+        }
+        </div>
+        <div class="flex flex-col flex-1">
+        <input class="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-500" type="text" placeholder="Phone" formControlName="phone">
+
+        @if (form.controls.phone.touched && form.controls.phone.invalid) {
+            <p class="text-red-500 text-xs mt-1">Phone must contain 9 numbers</p>
+        }
+        </div>
+        <div class="flex flex-col flex-1">
+        <input class="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-500" type="email" placeholder="Email" formControlName="email">
+
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+            <p class="text-red-500 text-xs mt-1">Enter a valid email</p>
+        }
+        </div>
+
+        <button class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-5 py-2 rounded-md whitespace-nowrap transition disabled:opacity-50" type="submit" [disabled]="form.invalid">
+            Sol·licitar pressupost →
+        </button>
+    </form>
+
+
+  </div>
+</div>

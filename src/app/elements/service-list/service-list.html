@@ -1,6 +1,9 @@
-<section class="w-full max-w-8xl mt-10 space-y-6">
+<section class="max-w-4xl mx-auto mt-5 flex flex-col gap-6">
     @for (service of services(); track service.id) {
         <app-service-card [service]="service" (toggle)="toggleService($event)" (emitChange)="updateConfig($event)"></app-service-card> 
     }
-    <h2 class="text-2xl font-bold right-100">Total: {{ total() }} €</h2>
+    <h2 class=" max-w-4xl w-full text-2xl font-bold m-3">Total: {{ total() }} €</h2>
+    <button class=" m-3 bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-6 py-3 rounded-md whitespace-nowrap transition disabled:opacity-50" (click)="generateBudget()">
+        Generar pressupost
+    </button>
 </section>
