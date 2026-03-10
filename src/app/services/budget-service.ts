@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import { ServiceCard } from '../elements/service-card/service-card';
 import { ServiceList } from '../elements/service-list/service-list';
 import { Service } from '../interfaces/service.interface';
+import { Client } from '../interfaces/client.interface';
 import { services } from '../data/services';
 
 @Injectable({
@@ -27,5 +28,16 @@ export class BudgetService {
       return total + service.basePrice + (pages + languages) * extraUnitPrice;
 
     }, 0);
+  }
+
+  customer = signal<Client | null>(null);
+  services = signal<Service[]>([]);
+
+  setCustomer(customer: Client) {
+    this.customer.set(customer);
+  }
+
+  setServices(services: Service[]) {
+    this.services.set(services);
   }
 }
