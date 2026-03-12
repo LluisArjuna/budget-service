@@ -3,7 +3,7 @@ import { Service } from './service.interface';
 
 export interface Budget {
     id: string;
-    date: string;
+    date: Date;
     client: Client;
     services: Service[];
     total: number;
