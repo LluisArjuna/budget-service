@@ -11,10 +11,6 @@ import { services } from '../data/services';
 export class BudgetService {
   private storageKey = 'budgets';
 
-  customer = signal<Client | null>(null);
-  services = signal<Service[]>([]);
-  budgets = signal<Budget[]>(this.getBudgets());
-
   getServices(): Service[] {  
     return [...services];
   }
@@ -25,14 +21,6 @@ export class BudgetService {
 
   getBudgetById(id: string): Budget | undefined {
     return this.getBudgets().find(budget => budget.id === id);
-  }
-
-  setCustomer(customer: Client) {
-    this.customer.set(customer);
-  }
-
-  setServices(services: Service[]) {
-    this.services.set(services);
   }
 
   generateBudget(services: Service[], customer: Client): Budget {
@@ -47,7 +35,7 @@ export class BudgetService {
   }
 
   saveBudget(budget: Budget) {
-    const updatedBudgets = [...this.budgets(), budget];
+    const updatedBudgets = [...this.getBudgets(), budget];
     localStorage.setItem(this.storageKey, JSON.stringify(updatedBudgets));
   }
 
