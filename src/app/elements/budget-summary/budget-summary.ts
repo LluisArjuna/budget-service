@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { BudgetService } from '../../services/budget-service';
 import { ActivatedRoute } from '@angular/router';
 import { Budget } from '../../interfaces/budget.interface';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-budget-summary',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './budget-summary.html',
 })
 export class BudgetSummary {

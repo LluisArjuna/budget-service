@@ -1,22 +1,37 @@
-@if (budget) {
-  <div>
-    <h2>Pressupost de {{ budget.client.firstName }}</h2>
-    <p>Data: {{ budget.date}}</p>
-    <p>Email: {{ budget.client.email }}</p>
-    <p>Telèfon: {{ budget.client.phone }}</p>
-
-    <h3>Serveis:</h3>
-    <ul>
-      @for (service of budget.services; track service) {
-        <li>
-          {{ service.type }} - {{ service.description }} - Subtotal: {{ service.basePrice}} €
+@if (budget; as b) {
+  <div class="max-w-xl mx-auto mt-10 bg-white shadow rounded-xl p-6">
+    <h2 class="text-lg font-semibold mb-4">
+      Pressupost de {{ b.client.firstName }}
+    </h2>
+    <p class="text-sm text-gray-600">
+      Data: {{ b.date | date:'longDate' }}
+    </p>
+    <p><strong>Email:</strong> {{ b.client.email }}</p>
+    <p><strong>Telèfon:</strong> {{ b.client.phone }}</p>
+    <h3 class="mt-4 font-medium">Serveis:</h3>
+    <ul class="mt-2 space-y-2">
+      @for (service of b.services; track service.type) {
+        <li class="p-3 border rounded-md bg-gray-50">
+          <div class="font-medium">
+            {{ service.type }}
+          </div>
+          <div class="text-sm text-gray-600">
+            {{ service.description }}
+          </div>
+          <div class="text-sm">
+            Subtotal: {{ service.basePrice }} €
+          </div>
           @if (service.configuration) {
-            <span>(Pàgines: {{ service.configuration.pages }}, Idiomes: {{ service.configuration.languages }})</span>
+            <div class="text-xs text-gray-500 mt-1">
+              Pàgines: {{ service.configuration.pages }},
+              Idiomes: {{ service.configuration.languages }}
+            </div>
           }
         </li>
       }
     </ul>
-
-    <p>Total: {{ budget.total}} €</p>
+    <p class="mt-4 text-lg font-semibold">
+      Total: {{ b.total }} €
+    </p>
   </div>
 }
