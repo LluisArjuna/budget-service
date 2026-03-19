@@ -50,7 +50,7 @@ export class BudgetService {
 
       const { pages, languages, extraUnitPrice } = service.configuration;
 
-      return total + service.basePrice + (pages * languages * extraUnitPrice);
+      return total + service.basePrice + (pages + languages) * extraUnitPrice;
 
     }, 0);
   }
