@@ -55,7 +55,6 @@ export class ServiceList {
 
   saveBudget(client: Client) {
     const selectedServices = this.services().filter(service => service.selected);
-    this.budgetService.setServices(selectedServices);
     const budget: Budget = this.budgetService.generateBudget(selectedServices, client);
     this.budgetService.saveBudget(budget);
     this.showRequestModal.set(false);
