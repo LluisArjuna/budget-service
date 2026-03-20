@@ -1,16 +1,42 @@
-import {Injectable} from '@angular/core';
-import { ServiceCard } from '../elements/service-card/service-card';
-import { ServiceList } from '../elements/service-list/service-list';
+import {Injectable, signal} from '@angular/core';
 import { Service } from '../interfaces/service.interface';
+import { Client } from '../interfaces/client.interface';
+import { Budget } from '../interfaces/budget.interface';
 import { services } from '../data/services';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class BudgetService {
+  private storageKey = 'budgets';
 
   getServices(): Service[] {  
-    return services;
+    return [...services];
+  }
+
+  getBudgets(): Budget[] {
+    return JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+  }
+
+  getBudgetById(id: string): Budget | undefined {
+    return this.getBudgets().find(budget => budget.id === id);
+  }
+
+  generateBudget(services: Service[], customer: Client): Budget {
+    const total = this.calculateTotal(services);
+    return {
+      id: crypto.randomUUID(),
+      date: new Date(),
+      client: customer,
+      services: services,
+      total: total
+    };
+  }
+
+  saveBudget(budget: Budget) {
+    const updatedBudgets = [...this.getBudgets(), budget];
+    localStorage.setItem(this.storageKey, JSON.stringify(updatedBudgets));
   }
 
   calculateTotal(services: Service[]): number {
@@ -24,8 +50,9 @@ export class BudgetService {
 
       const { pages, languages, extraUnitPrice } = service.configuration;
 
-      return total + service.basePrice + (pages + languages) * extraUnitPrice;
+      return total + service.basePrice + (pages * languages * extraUnitPrice);
 
     }, 0);
   }
+
 }

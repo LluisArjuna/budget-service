@@ -1,6 +1,17 @@
-<section class="w-full max-w-8xl mt-10 space-y-6">
+<section class="max-w-4xl mx-auto mt-5 flex flex-col gap-6" (click)="showRequestModal.set(false)">
     @for (service of services(); track service.id) {
         <app-service-card [service]="service" (toggle)="toggleService($event)" (emitChange)="updateConfig($event)"></app-service-card> 
     }
-    <h2 class="text-2xl font-bold right-100">Total: {{ total() }} €</h2>
+    <h2 class=" max-w-4xl w-full text-2xl font-bold m-3">Total: {{ total() }} €</h2>
+    <button class=" m-3 bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-6 py-3 rounded-md whitespace-nowrap transition disabled:opacity-50" (click)="openRequestModal()" [disabled]="total() <= 0" (click)="$event.stopPropagation()">
+        Generar pressupost
+    </button>
+    @if (showRequestModal()) {
+        <div class="fixed inset-0 backdrop-blur bg-opacity-50 top-50% z-50">
+            <div (click)="$event.stopPropagation()">
+            <app-budget-form (onBudgetRequest)="saveBudget($event)"></app-budget-form>
+            </div>  
+        </div>
+    }    
 </section>
+

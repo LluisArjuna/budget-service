@@ -25,7 +25,7 @@ export class ServiceCard {
     }
 
     const { pages, languages, extraUnitPrice } = serv.configuration;
-    return serv.basePrice + (pages + languages) * extraUnitPrice;
+    return serv.basePrice + (pages * languages * extraUnitPrice);
   });
 
   emitChange = output<{ id: number; pages: number; languages: number }>();
