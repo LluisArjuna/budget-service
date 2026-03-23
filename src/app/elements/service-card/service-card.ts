@@ -16,18 +16,6 @@ export class ServiceCard {
     this.service().type === 'Web' && this.service().selected 
   );
 
-  subtotal = computed(() => {
-    const serv = this.service();
-    if (!serv.selected) return 0;
-
-    if (serv.type !== 'Web' || !serv.configuration) {
-      return serv.basePrice;
-    }
-
-    const { pages, languages, extraUnitPrice } = serv.configuration;
-    return serv.basePrice + (pages * languages * extraUnitPrice);
-  });
-
   emitChange = output<{ id: number; pages: number; languages: number }>();
 
   updateLanguages(event: Event) {

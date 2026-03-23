@@ -13,10 +13,11 @@ export class BudgetHistory {
   readonly router = inject(Router);
 
   budgets = signal(this.budgetService.getBudgets());
-  searchTerm = '';
+  searchTerm = signal('');
 
   filteredBudgets = computed(() => {
-    const term = this.searchTerm.toLowerCase();
+    const term = this.searchTerm().toLowerCase();
+    
     return this.budgets().filter(budget =>
       budget.client.firstName.toLowerCase().includes(term) ||
       budget.client.email.toLowerCase().includes(term) ||
